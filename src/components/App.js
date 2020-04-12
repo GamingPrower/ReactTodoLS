@@ -1,18 +1,17 @@
-import React, { useState } from 'react'
+import React, { useReducer } from 'react'
 import Form from './Form'
 import TodoList from './TodoList'
+import reducer, { initTodos } from './reducer'
 
 const App = () => {
-	// Retrieve todos from localStorage. If none exist, set an empty array.
-	const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')));
-	if (!todos) setTodos([]);
+	const [todos, dispatch] = useReducer(reducer, JSON.parse(localStorage.getItem('todos')), initTodos);
 
 	return (
 		<div className="ui raised very padded text container segment">
 			<div className="ui celled list">
-				<TodoList todos={todos} setTodos={setTodos} />
+				<TodoList todos={todos} dispatch={dispatch} />
 			</div>
-			<Form todos={todos} setTodos={setTodos} />
+			<Form todos={todos} dispatch={dispatch} />
 		</div>
 	)
 }

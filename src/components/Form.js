@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import { v4 as uuidv4 } from 'uuid'
 
-const Form = ({ todos, setTodos }) => {
+const Form = ({ todos, dispatch }) => {
 	// Initialize input field state
 	const [value, setValue] = useState('');
 
@@ -9,9 +8,8 @@ const Form = ({ todos, setTodos }) => {
 		e.preventDefault();
 		if (!value) return;
 
-		// Update state and localStorage with new todo
-		setTodos([...todos, { text: value, completed: false, id: uuidv4() }]);
-		localStorage.setItem('todos', JSON.stringify([...todos, { text: value, completed: false, id: uuidv4() }]));
+		// Dispatch new todo
+		dispatch({ type: 'ADD_TODO', payload: value });
 		// Reset input field
 		setValue('');
 	};
