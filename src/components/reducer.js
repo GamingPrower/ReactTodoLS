@@ -5,7 +5,11 @@ export const initTodos = (state) => {
 
 	localStorage.setItem('todos', JSON.stringify(todos));
 	return todos;
-}
+};
+
+export const fetchTodos = () => {
+	return JSON.parse(localStorage.getItem('todos'));
+};
 
 export default (state, action) => {
 	switch (action.type) {
